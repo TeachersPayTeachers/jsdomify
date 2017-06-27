@@ -38,9 +38,6 @@
     "test": "mocha --compilers js:babel-core/register",
     "travis": "npm run lint:all && npm run coverage"
   },
-  "pre-commit": [
-    "lint:cached"
-  ],
   "files": [
     "lib/jsdomify.js"
   ],

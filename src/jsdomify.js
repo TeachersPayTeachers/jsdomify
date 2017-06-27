@@ -1,4 +1,4 @@
-import { jsdom } from 'jsdom';
+import { JSDOM } from 'jsdom';
 
 let actualDOM;
 let documentRef;
@@ -6,8 +6,8 @@ const exposedProperties = ['window', 'navigator', 'document'];
 
 const create = (domString, opts = {}) => {
   actualDOM = domString || '';
-  global.document = jsdom(actualDOM, opts || {});
-  global.window = global.document.defaultView;
+  global.window = new JSDOM(actualDOM, opts || {}).window;
+  global.document = global.window.document;
   Object.keys(global.document.defaultView).forEach((property) => {
     if (typeof global[property] === 'undefined') {
       exposedProperties.push(property);
