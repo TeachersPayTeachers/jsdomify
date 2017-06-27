@@ -4,9 +4,9 @@ let actualDOM;
 let documentRef;
 const exposedProperties = ['window', 'navigator', 'document'];
 
-const create = (domString) => {
+const create = (domString, opts = {}) => {
   actualDOM = domString || '';
-  global.document = jsdom(actualDOM);
+  global.document = jsdom(actualDOM, opts || {});
   global.window = global.document.defaultView;
   Object.keys(global.document.defaultView).forEach((property) => {
     if (typeof global[property] === 'undefined') {
@@ -44,9 +44,9 @@ const destroy = (clearRequireCache) => {
   }
 };
 
-const clear = () => {
+const clear = (opts) => {
   destroy();
-  create(actualDOM);
+  create(actualDOM, opts);
 };
 
 const getDocument = () => {
